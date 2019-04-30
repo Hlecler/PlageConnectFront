@@ -12,7 +12,4 @@ COPY . .
 
 EXPOSE 8080
 
-#RUN docker compose up
-#RUN docker compose run
-
 CMD [ "npm", "start" ]
