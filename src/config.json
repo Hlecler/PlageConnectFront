@@ -1,0 +1,5 @@
+{
+    "API_HOST" : "http://plageconnectapi.igpolytech.fr",
+    "TIMEOUT" : 2500,
+    "MOODLE_URL" : "http://192.168.1.40/"
+}

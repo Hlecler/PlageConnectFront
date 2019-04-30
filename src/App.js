@@ -1,26 +1,41 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from 'react';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+// Style
+import './style/App.css';
+// Modules
+import { MOODLE_URL} from './config.json';
+
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import NavBar from './Component/NavBar/NavBar';
+import Homepage from './Component/Homepage/Homepage';
+import LoginCard from './Component/Login/LoginCard';
+import LogoutCard from './Component/Login/LogoutCard';
+import Home from './Component/Home/Home';
+
+class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {}
+  }
+
+  render() {
+    return (
+      <div>
+      <Router>
+        <div>
+          <Route component={NavBar}/>
+          <Switch>
+            <Route path='/' exact component={Homepage}/>
+            <Route path='/login' component={LoginCard} />
+            <Route path='/logout' component={LogoutCard} />
+            <Route path='/home' component={Home}/>
+            <Route path='/moodle' component={() => { window.location = MOODLE_URL; return null;} }/>
+          </Switch>
+        </div>
+      </Router>
+      </div>
+    );
+  }
 }
 
 export default App;
