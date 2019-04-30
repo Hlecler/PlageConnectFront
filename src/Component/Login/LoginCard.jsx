@@ -21,6 +21,12 @@ class LoginCard extends React.Component {
   };
   }
 
+  componentDidMount(){
+    if(client.me){
+      this.props.history.push('/home')
+    }
+  }
+
   render(){
     this.passwordInput = React.createRef();
     this.idInput = React.createRef();
@@ -83,11 +89,12 @@ class LoginCard extends React.Component {
        }),
     })
     if (response.ok){
+      
       const body = await response.json()
       
       client.setCredentials(body)
-
-      const responseMoodle = await fetch('/moodle/connect', 
+      
+      const responseMoodle = await fetch('/moodle/token', 
       {
         method: 'POST',
         headers: {
@@ -97,13 +104,24 @@ class LoginCard extends React.Component {
         id: this.state.id
        }),
     })
-    if (responseMoodle.ok){
-      body = await responseMoodle.json()
-      this.setState({ error : body})
+    if(responseMoodle.ok){
+      const body2 = await responseMoodle.json()
+      var loginurl = JSON.parse(body2).loginurl
+      
+      if(loginurl){
+        window.open(loginurl);
+        this.props.history.push('/home')
+      }
+      else{
+        this.props.history.push('/home');
+      }
+      
     }
-
-    this.props.history.push('/home')
+    else{
+      this.props.history.push('/home');
     }
+    }
+    
     else{
       switch (response.status){
         case 400 : 
